@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Convert string to int", "Convert string to int\Convert string to int.csproj", "{AE94ACC7-30A1-4E8F-A476-2C30273743CB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AE94ACC7-30A1-4E8F-A476-2C30273743CB}.Debug|x86.ActiveCfg = Debug|x86
+		{AE94ACC7-30A1-4E8F-A476-2C30273743CB}.Debug|x86.Build.0 = Debug|x86
+		{AE94ACC7-30A1-4E8F-A476-2C30273743CB}.Release|x86.ActiveCfg = Release|x86
+		{AE94ACC7-30A1-4E8F-A476-2C30273743CB}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
