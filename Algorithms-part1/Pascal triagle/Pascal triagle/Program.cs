@@ -12,7 +12,7 @@ namespace Pascal_triagle
             int lineN;
             int maximum;
             string numberstring;
-            Console.Write("Please enter number of lines 1-13 for Pascal triangle  ");
+            Console.Write("Please enter number of lines for Pascal triangle  ");
             if (Int32.TryParse(Console.ReadLine(), out lineN))
             {
                 int[,] Matrix = new int[lineN, 2 * lineN - 1];

@@ -10,7 +10,7 @@ namespace Convert_string_to_int
         static void Main(string[] args)
         {
             string stringnumber;
-            bool CanConvertToInt = true;
+            bool CanConvertToInt=true;
             stringnumber = Console.ReadLine();
             int intnumber = 0;
             // Checking convertion from string to int
@@ -27,9 +27,9 @@ namespace Convert_string_to_int
             }
             // Printing of result
             if(!CanConvertToInt)
-                Console.WriteLine("{0}  this string can not convert to int ", stringnumber);
+                    Console.WriteLine("{0}  this stringing can not convert to int ", stringnumber);
             else
-                Console.WriteLine(intnumber);
+            Console.WriteLine(intnumber);
         }
     }
 }
