@@ -86,6 +86,7 @@ namespace Breadth_first_traversal_without_recursion
             int countof1 = 0;
             for (int i = 0; i < size; i++)
             {
+                countof1 = 0;
                 for (int j = 0; j < size; j++)
                     if (Matrix[i, j] == 1)
                     {
