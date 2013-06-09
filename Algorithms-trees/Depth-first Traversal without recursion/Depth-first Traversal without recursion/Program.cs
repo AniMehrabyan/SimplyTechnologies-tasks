@@ -87,7 +87,7 @@ namespace Depth_first_Traversal_without_recursion
         private bool IsStackEmpty()
         {
             for (int i = 0; i < stackindexposition; i++)
-                if (Stack[stackindexposition] != 0)
+                if (Stack[i] != 0)
                     return false;
             return true;
 
