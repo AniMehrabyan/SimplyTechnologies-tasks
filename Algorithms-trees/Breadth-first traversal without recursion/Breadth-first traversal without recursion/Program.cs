@@ -97,6 +97,18 @@ namespace Breadth_first_traversal_without_recursion
             }
             return false;
         }
+        //  Function  that verify has matrix cycle, if has it's can't be tree traversal
+        private bool HasMatrixCycle(int size)
+        {
+            int k = 0;
+            for (int i = 0; i < size - 1; i++)
+                for (int j = i + 1; j < size; j++)
+                    if (Matrix[i, j] == 1)
+                        k++;
+            if (k > size - 1)
+                return true;
+            return false;
+        }
         static void Main(string[] args)
         {
             Console.Write("Enter number of edges, please   ");
@@ -108,47 +120,47 @@ namespace Breadth_first_traversal_without_recursion
             {
                 Program program = new Program();
                 program.InputMatrix(size);
-                if (!program.HasEmptyStroke(size))
+                if (!program.HasMatrixCycle(size))
                 {
-                    Console.Write("Enter number of first edges, please   ");
-                    if (Int32.TryParse(Console.ReadLine(), out firstedge) == false || firstedge < 1 || firstedge > size)
-                        Console.WriteLine("You entered wrong simbol");
-                    program.Result[program.count++] = firstedge;
-                    if (!program.IsMatrixEmpty(size))
-                        for (int i = 0; i < size; i++)
-                        {
-                            if (program.Matrix[i, firstedge - 1] == 1)
-                            {
-                                program.Matrix[i, firstedge - 1] = program.count;
-                                program.Matrix[firstedge - 1, i] = program.count + size;
-                                program.count++;
-                            }
-                        }
-
-                    program.countofsteps = program.count - 2;
-                    int countofsteps1 = program.countofsteps;
-                    //Making alternation of edges
-                    for (int m = 0; m < size + 1; m++)
+                    if (!program.HasEmptyStroke(size))
                     {
+                        Console.Write("Enter number of first edges, please   ");
+                        if (Int32.TryParse(Console.ReadLine(), out firstedge) == false || firstedge < 1 || firstedge > size)
+                            Console.WriteLine("You entered wrong simbol");
+                        program.Result[program.count++] = firstedge;
                         if (!program.IsMatrixEmpty(size))
-                            program.MakingResult(size);
-                        else
+                            for (int i = 0; i < size; i++)
+                            {
+                                if (program.Matrix[i, firstedge - 1] == 1)
+                                {
+                                    program.Matrix[i, firstedge - 1] = program.count;
+                                    program.Matrix[firstedge - 1, i] = program.count + size;
+                                    program.count++;
+                                }
+                            }
+
+                        program.countofsteps = program.count - 2;
+                        int countofsteps1 = program.countofsteps;
+                        //Making alternation of edges
+                        for (int m = 0; m < size + 1; m++)
                         {
-                            //Verifing has traversal  cicles or not
-                            if(program.count==size+1)
-                            for (int i = 1; i < program.count; i++)
-                                Console.WriteLine(program.Result[i]);
-                                
+                            if (!program.IsMatrixEmpty(size))
+                                program.MakingResult(size);
                             else
-                                Console.WriteLine("You entered traversal  not  wright, it's has cicle ");
-                            break;
+                            {
+                                    for (int i = 1; i < program.count; i++)
+                                        Console.WriteLine(program.Result[i]);                               
+                                break;
+                            }
+                            if (m == size - countofsteps1 + 1)
+                                Console.WriteLine("You entered  traversal  not  wright, there is one or more edges, that isn't connected each other ");
                         }
-                        if (m == size-countofsteps1+1)
-                            Console.WriteLine("You entered  traversal  not  wright, there is one or more edges, that isn't connected each other ");
                     }
+                    else
+                        Console.WriteLine("You entered traversal  not  wright, there is one edge, that isn't connected to one of traversal's edges  ");
                 }
                 else
-                Console.WriteLine("You entered traversal  not  wright, there is one edge, that isn't connected to one of traversal's edges  ");
+                    Console.WriteLine("You entered traversal  not  wright, it's has cicle ");
             }
         }
     }

@@ -70,6 +70,20 @@ namespace Depth_first_Traversal_without_recursion
             }
             return false;
         }
+
+        //  Function  that verify has matrix cycle, if has it's can't be tree traversal
+        private bool HasMatrixCycle()
+        {
+            int k = 0;
+            for (int i = 0; i < MatrixSize - 1; i++)
+                for (int j = i + 1; j < MatrixSize; j++)
+                    if (Matrix[i, j] == 1)
+                        k++;
+            if (k > MatrixSize - 1)
+                return true;
+            return false;
+        }
+
         //Function  that verify has that edge  other branch, if  has, we add in stack
         private bool HasOtherBranch(int k, int j)
         {
@@ -130,56 +144,54 @@ namespace Depth_first_Traversal_without_recursion
             else
             {
                 program.InputMatrix();
-                if (!program.HasEmptyStroke())
+                if (!program.HasMatrixCycle())
                 {
-                    Console.Write("Enter number of first edges, please   ");
-                    if (Int32.TryParse(Console.ReadLine(), out firstedge) == false || firstedge < 1 || firstedge > program.MatrixSize)
-                        Console.WriteLine("You entered wrong simbol");
-                    program.Result[program.resultindex] = firstedge;
-                    program.resultindex++;
-                    program.MakingResult(firstedge - 1);
-
-                    for (; ; )
+                    if (!program.HasEmptyStroke())
                     {
-                        if (!program.IsMatrixEmpty())
+                        Console.Write("Enter number of first edges, please   ");
+                        if (Int32.TryParse(Console.ReadLine(), out firstedge) == false || firstedge < 1 || firstedge > program.MatrixSize)
+                            Console.WriteLine("You entered wrong simbol");
+                        program.Result[program.resultindex] = firstedge;
+                        program.resultindex++;
+                        program.MakingResult(firstedge - 1);
+
+                        for (; ; )
                         {
-                            if (program.IsStackEmpty())
+                            if (!program.IsMatrixEmpty())
                             {
-                                Console.WriteLine("You entered  traversal  not  wright, there is one or more edges, that isn't connected each other ");
-                                break;
-                            }
-                            for (int k = program.stackindexposition; k > -1; k--)
-                                if (program.Stack[k] != 0)
+                                if (program.IsStackEmpty())
                                 {
-                                    program.MakingResult(program.Stack[k] - 1);
-                                    program.Stack[k] = 0;
+                                    Console.WriteLine("You entered  traversal  not  wright, there is one or more edges, that isn't connected each other ");
                                     break;
                                 }
-                                else if (k == 0)
-                                    fin = 1;
+                                for (int k = program.stackindexposition; k > -1; k--)
+                                    if (program.Stack[k] != 0)
+                                    {
+                                        program.MakingResult(program.Stack[k] - 1);
+                                        program.Stack[k] = 0;
+                                        break;
+                                    }
+                                    else if (k == 0)
+                                        fin = 1;
 
-                            if (fin == 1)
-                            {
-                                break;
+                                if (fin == 1)
+                                {
+                                    break;
+                                }
                             }
-                        }
-                        else
-                        {
-                            //if Resultposition more than  matrixsize, it's mean  that traversal has cicle and it's can't be tree traversal
-                            if (program.resultindex == program.MatrixSize)
+                            else
                             {
                                 for (int i = 0; i < program.resultindex; i++)
                                     Console.WriteLine(program.Result[i]);
                                 break;
                             }
-                            else
-                                Console.WriteLine("You entered traversal  not  wright, it's has cicle ");
-                            break;
                         }
                     }
+                    else
+                        Console.WriteLine("You entered traversal  not  wright, there is one edge, that isn't connected to one of traversal's edges  ");
                 }
                 else
-                    Console.WriteLine("You entered traversal  not  wright, there is one edge, that isn't connected to one of traversal's edges  ");
+                    Console.WriteLine("You entered traversal  not  wright, it's has cicle ");
             }
         }
     }
