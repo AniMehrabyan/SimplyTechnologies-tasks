@@ -47,10 +47,8 @@ namespace Depth_first_Traversal_without_recursion
             for (int i = 0; i < MatrixSize - 1; i++)
                 for (int j = i + 1; j < MatrixSize; j++)
                     if (Matrix[i, j] != 0)
-                        k++;
-            if (k == 0)
-                return true;
-            else return false;
+                   return false;
+            return true;
         }
         //  Function  that verify has matrix empty stroke, if Matrix at first has empty stroke that's mean, 
         //that there is an edge that doesn't connected any other edge.

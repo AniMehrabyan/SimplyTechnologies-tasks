@@ -44,10 +44,8 @@ namespace Breadth_first_traversal_using_recursion
             for (int i = 0; i < size - 1; i++)
                 for (int j = i + 1; j < size; j++)
                     if (Matrix[i, j] != 0)
-                        k++;
-            if (k == 0)
-                return true;
-            else return false;
+                         return false;
+            return true;
         }
         //Recursive function  that make  alternation of edges
         private bool MakingResult(int size)
