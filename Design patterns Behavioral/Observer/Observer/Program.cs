@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,77 +7,73 @@ using System.Threading.Tasks;
 
 namespace Observer
 {
-    class Subject
+    public interface IObserver
     {
-        private List<Employee> employees = new List<Employee>();
+        void Notify(string String);
+    }
 
-        public void Attach(Employee employee)
+    public interface IObservable
+    {
+        void Adding(IObserver observer);
+        void Removing(IObserver observer);
+    }
+
+    public class Observable1 : IObservable
+    {
+        protected Hashtable observerContainer = new Hashtable();
+
+        public void Adding(IObserver Observer)
         {
-            employees.Add(employee);
+            observerContainer.Add(Observer, Observer);
         }
 
-        public void Detach(Employee employee)
+        public void Removing(IObserver Observer)
         {
-            employees.Remove(employee);
+            observerContainer.Remove(Observer);
         }
 
-        public void Notify()
+        public void NotifyObservers(string String)
         {
-            foreach (var observer in employees)
+            foreach (IObserver anObserver in observerContainer.Keys)
             {
-                observer.Update();
+                anObserver.Notify(String);
             }
         }
     }
-    abstract class Employee
+    public class Youtube : Observable1
     {
-        abstract public void Update();
-    }
-    class ConcreteSubject : Subject
-    {
-        private int value;
-
-        public int Value
+        string addSong;
+        public string AddSong
         {
-            get
-            {
-                return value;
-            }
             set
             {
-                this.value = value;
-                Notify();
+                addSong = value;
+                base.NotifyObservers(addSong);
             }
         }
     }
-    class ConcreteObserver : Employee
+
+    public class Display : IObserver
     {
-        private ConcreteSubject subject;
-
-        public override void Update()
+        public void Notify(string String)
         {
-            Console.WriteLine("Subject value is {0}.", subject.Value);
-        }
-
-        public ConcreteObserver(ConcreteSubject subject)
-        {
-            subject.Attach(this);
-            this.subject = subject;
-        }
-
-        ~ConcreteObserver()
-        {
-            subject.Detach(this);
+            Console.WriteLine("The song, which was add, is  " + String);
         }
     }
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            ConcreteSubject concreteSubject = new ConcreteSubject();
-            ConcreteObserver concreteObserver = new ConcreteObserver(concreteSubject);
 
-            concreteSubject.Value = 10;
+    public class MainClass
+    {
+        public static void Main()
+        {
+            Display stockDisplay = new Display();
+            Youtube youtube = new Youtube();
+            youtube.Adding(stockDisplay);
+            youtube.AddSong = "Gnarls Barkley - Crazy";
+            youtube.AddSong = "Lana Del Rey - Born To Die";
+            youtube.AddSong = "Alicia Keys - Fallin";
+            youtube.AddSong = "Adele- Don't You Remember";
+            youtube.AddSong = "Joe Cocker - You Are So Beautiful";
+            youtube.Removing(stockDisplay);
         }
     }
 }
